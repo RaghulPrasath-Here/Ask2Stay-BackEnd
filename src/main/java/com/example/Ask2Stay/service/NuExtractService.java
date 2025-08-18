@@ -38,4 +38,7 @@ public class NuExtractService {
                         .filter(throwable -> !(throwable instanceof WebClientResponseException.BadRequest)))
                 .timeout(Duration.ofMillis(config.getTimeout()));
     }
+    public NuExtractResponse extractFieldsSync(String text, Map<String, Object> template) {
+        return extractFields(text, template).block();
+    }
 }

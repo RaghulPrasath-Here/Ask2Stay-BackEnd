@@ -30,5 +30,16 @@ public class NuExtractController {
                     return ResponseEntity.ok(response);
                 });
     }
+    @PostMapping("/fields/sync")
+    public ResponseEntity<NuExtractResponse> extractFieldsSync(
+            @RequestBody ExtractionRequest request) {
 
+        NuExtractResponse response = nuExtractService.extractFieldsSync(
+                request.getText(), request.getTemplate());
+
+        if ("error".equals(response.getStatus())) {
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
 }
