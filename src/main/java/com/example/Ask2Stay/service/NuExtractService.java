@@ -41,4 +41,10 @@ public class NuExtractService {
     public NuExtractResponse extractFieldsSync(String text, Map<String, Object> template) {
         return extractFields(text, template).block();
     }
+    private Mono<NuExtractResponse> handleError(Throwable throwable) {
+        NuExtractResponse errorResponse = new NuExtractResponse();
+        errorResponse.setStatus("error");
+        errorResponse.setMessage("Failed to extract fields: " + throwable.getMessage());
+        return Mono.just(errorResponse);
+    }
 }
